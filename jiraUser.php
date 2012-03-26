@@ -5,7 +5,7 @@
  *
  * @author Claudia Pfeil
  */
-class AddJiraUser {
+class JiraUser {
 
     function addUser($client, $token, $new_username, $new_password, $new_fullname, $new_email){
         try {
@@ -20,6 +20,18 @@ class AddJiraUser {
         }
 
         return $out;
+    }
+
+    function deleteUser($client, $token, $username){
+        try {
+            $result =   $client->deleteUser();
+            $out[]  =   'Deleted user ' . $user_name;
+            $out[]  =   'Result:    ';
+            $out[]  =   print_r($result, true);
+        }  catch (SoapFault $fault){
+            $out[]  =   'Error deleting user ' . $user_name;
+            $out[]  =   $fault;
+        }
     }
 
 }
